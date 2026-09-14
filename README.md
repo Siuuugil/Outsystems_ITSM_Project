@@ -5,6 +5,8 @@ OutSystems ODC 기반으로 만든 AI 연동 IT 장애(Incident) 관리 시스�
 ## 목차
 
 - [프로젝트 개요](#프로젝트-개요)
+- [동작 데모](#동작-데모)
+- [FAQ](#faq)
 - [주요 화면](#주요-화면)
 - [담당 역할](#담당-역할)
 - [시스템 아키텍처](#시스템-아키텍처)
@@ -13,9 +15,7 @@ OutSystems ODC 기반으로 만든 AI 연동 IT 장애(Incident) 관리 시스�
 - [프로젝트 특징](#프로젝트-특징)
 - [산출물 문서](#산출물-문서)
 
-**정상 흐름**
-![에러 등록](screenshot/incident_create.gif)
-
+<!-- [데모 GIF/영상 삽입 — 스크롤하자마자 바로 보이도록 최상단 배치] -->
 
 ## 프로젝트 개요
 
@@ -46,76 +46,152 @@ flowchart TD
 
 **범위 밖**: 이메일·메신저·전화 자동 접수, 서버·네트워크 모니터링 연동, CMDB 등 복잡한 ITSM 기능, AI의 자동 해결/종료 — 모든 AI 결과는 추천이며 실제 반영은 권한을 가진 사용자가 검토·승인한다.
 
+## 동작 데모
+
+세 가지 시나리오를 실제 화면 녹화로 보여준다.
+
+### 정상 흐름
+
+![요청자 등록](screenshot/등록.gif)
+
+요청자가 오류 사례를 신고 접수한다.
+
+![서비스데스크 트리아지](screenshot/서비스데스크_트리아지.gif)
+
+서비스데스크가 접수 건을 확인하고, AI 분류 결과를 검토해 담당자를 확정한다.
+
+![담당자 처리완료](screenshot/담당자_처리완료.gif)
+
+담당자가 배정을 확인하고 처리를 완료한다.
+
+![요청자 확인](screenshot/요청자_확인.gif)
+
+요청자가 해결된 인시던트를 확인한다.
+
+### 반려 흐름
+
+![서비스데스크 반려처리](screenshot/서비스데스크_반려처리.gif)
+
+서비스데스크가 반려 사유를 입력하고 처리한다.
+
+![요청자 반려확인](screenshot/요청자_반려확인.gif)
+
+요청자가 반려된 인시던트를 확인한다.
+
+### 이관요청 흐름
+
+![전문담당자 이관요청](screenshot/전문담당자_이관요청.gif)
+
+전문 담당자가 처리 불가 사유를 입력해 이관을 요청한다.
+
+![서비스데스크 재배정](screenshot/서비스데스크_재배정.gif)
+
+서비스데스크가 이관요청을 검토하고 새 담당자를 재배정한다.
+
+![신규담당자 배정확인](screenshot/신규담당자_배정확인.gif)
+
+새로 배정된 담당자가 인시던트를 확인하고 처리 코멘트를 남긴다.
+
+## FAQ
+
+**Q. 서비스데스크는 어떤 경우에 반려 처리하나요?**
+A. Incident 유효성 검사 결과 부적합하다고 판단되는 경우 반려한다. 예를 들어 하나의 요청에 서로 다른 장애가 여러 건 섞여 있으면, 건별로 나눠서 다시 등록해달라는 사유와 함께 반려한다. 반려된 Incident는 요청자가 직접 상태를 바꿀 수 없고, 새로운 요청이 필요하면 신규로 별도 등록해야 한다.
+
+**Q. 전문 담당자는 어떤 경우에 이관요청을 하나요?**
+A. 본인 담당 범위에서 조치는 했지만 원인이 다른 지원팀 소관으로 확인되어 추가 작업이 필요한 경우, Incident를 종료하지 않고 이관을 요청한다. 예를 들어 업무시스템지원팀이 애플리케이션 측을 점검했지만 이상이 없어 네트워크 구간 문제로 판단되면, 기존 조치 내용과 이관 사유를 기록해 네트워크운영팀으로 이관 요청한다. 실제 원인과 처리 내용 등 필수 정보가 없으면 이관 요청 자체가 차단된다.
+
+**Q. 이관요청과 재배정은 뭐가 다른가요?**
+A. 재배정은 담당자가 처리를 시작하기 전에 서비스데스크가 분류나 담당자 지정 오류를 발견해서 스스로 담당자를 바꾸는 것이고, 이관요청은 담당자가 이미 조치를 진행한 뒤 다른 팀의 추가 작업이 필요하다고 판단해서 요청하는 것이다.
+
 ## 주요 화면
 
 로그인 후 역할에 따라 다른 메인 화면과 메뉴로 연결된다.
 
 ![로그인 화면](screenshot/login.png)
-*역할별 계정으로 로그인하면 각자의 메인 화면으로 이동한다.*
+
+역할별 계정으로 로그인하면 각자의 메인 화면으로 이동한다.
 
 ### 요청자
 
 ![요청자 메인 화면](screenshot/requester_main.png)
-*접수·진행중·완료·반려 현황 카드와 공지사항·FAQ, 장애 신고 버튼을 제공하는 메인 화면.*
+
+접수·진행중·완료·반려 현황 카드와 공지사항·FAQ, 장애 신고 버튼을 제공하는 메인 화면.
 
 ![장애 신고 화면](screenshot/requester_form.png)
-*제목과 상세내용만 입력하면 되는 신고 폼. 카테고리를 직접 고를 필요 없이 AI가 자동으로 분류한다.*
+
+제목과 상세내용만 입력하면 되는 신고 폼. 카테고리를 직접 고를 필요 없이 AI가 자동으로 분류한다.
 
 ![내 요청 내역](screenshot/requester_list.png)
-*본인이 등록한 Incident 목록과 처리 상태를 조회하는 화면.*
+
+본인이 등록한 Incident 목록과 처리 상태를 조회하는 화면.
 
 ![마이페이지](screenshot/requester_mypage.png)
-*개인 정보를 확인하는 화면.*
+
+개인 정보를 확인하는 화면.
 
 ### 서비스데스크
 
 ![서비스데스크 메인 화면](screenshot/servicedesk_main.png)
-*신규·진행중·완료·이관요청·반려 현황과 Category별 장애 현황을 보여주는 메인 화면.*
+
+신규·진행중·완료·이관요청·반려 현황과 Category별 장애 현황을 보여주는 메인 화면.
 
 ![Incident Queue](screenshot/servicedesk_list.png)
-*접수된 전체 Incident를 상태별로 조회하는 화면.*
+
+접수된 전체 Incident를 상태별로 조회하는 화면.
 
 ![Incident 상세](screenshot/servicedesk_detail.png)
-*신고 내용, 실제 조치 내용, AI 추천값과 최종 확정값 비교, 전체 처리 이력을 한 화면에서 확인한다.*
+
+신고 내용, 실제 조치 내용, AI 추천값과 최종 확정값 비교, 전체 처리 이력을 한 화면에서 확인한다.
 
 ### 전문 담당자
 
 ![담당자 메인 화면](screenshot/specialist_main.png)
-*접수·진행중·완료·재배정·이관요청 현황을 보여주는 메인 화면.*
+
+접수·진행중·완료·재배정·이관요청 현황을 보여주는 메인 화면.
 
 ![내 담당 요청 내역](screenshot/specialist_list.png)
-*배정된 Incident 목록과 기간별 분석 보고서 생성 기능을 제공하는 화면.*
+
+배정된 Incident 목록과 기간별 분석 보고서 생성 기능을 제공하는 화면.
 
 ![담당 Incident 상세](screenshot/specialist_detail.png)
-*신고 내용과 함께 Resolution Recommender의 추천 해결 방법을 표시하는 화면.*
+
+신고 내용과 함께 Resolution Recommender의 추천 해결 방법을 표시하는 화면.
 
 ### Incident Analysis PDF Agent
 
 ![보고서 생성 기간 선택](screenshot/pdf_period_select.png)
-*담당자가 최근 1/3/6개월 또는 기간 직접 입력 중 선택해서 보고서 생성을 요청하는 화면.*
+
+분석 기간을 선택해서 보고서 생성을 요청하는 화면.
 
 ![분석 보고서 표지](screenshot/pdf_report_cover.png)
-*생성된 PDF 보고서 표지 — 분석 대상 Incident 건수, 분석 기간, 생성일을 요약해서 보여준다.*
+
+생성된 PDF 보고서 표지 — 분석 대상 Incident 건수, 분석 기간, 생성일을 요약해서 보여준다.
 
 ![분석 보고서 목차](screenshot/pdf_report_toc.png)
-*통계 요약부터 AI 추천 활용 정보, 재발방지 권고, 최종 결론까지 10개 섹션으로 구성된 보고서 목차.*
+
+통계 요약부터 AI 추천 활용 정보, 재발방지 권고, 최종 결론까지 10개 섹션으로 구성된 보고서 목차.
 
 ### 관리자
 
 ![관리자 메인 화면](screenshot/admin_main.png)
-*등록 임직원 수, 오늘 접수, 증상 코드, 오류 로그, 지원팀별 진행 현황을 종합해서 보여주는 화면.*
+
+등록 임직원 수, 오늘 접수, 증상 코드, 오류 로그, 지원팀별 진행 현황을 종합해서 보여주는 화면.
 
 ![임직원 관리](screenshot/admin_employee.png)
-*사용자 등록·수정, 권한 및 부서 설정 화면.*
+
+사용자 등록·수정, 권한 및 부서 설정 화면.
 
 ![인시던트 증상 관리](screenshot/admin_symptom.png)
-*Symptom별 기본 지원팀, Impact/Urgency 매핑을 관리하는 화면.*
+
+Symptom별 기본 지원팀, Impact/Urgency 매핑을 관리하는 화면.
 
 ![로그 기록 관리](screenshot/admin_log.png)
-*Error Log를 조회하는 화면.*
+
+Error Log를 조회하는 화면.
 
 ![AI 응답 JSON 확인](screenshot/admin_log_json.png)
-*Incident Analysis PDF Agent가 생성한 응답 원본 JSON을 그대로 확인할 수 있는 화면.*
+
+Incident Analysis PDF Agent가 생성한 응답 원본 JSON을 그대로 확인할 수 있는 화면.
 
 ## 담당 역할
 
@@ -139,16 +215,20 @@ graph TD
 실제 Service Studio 구조에서도 화면 UI(APP)와 로직·데이터(CORE)가 모듈로 분리되어 있다.
 
 ![Assets 목록 — 실제 모듈명](screenshot/architecture_modules_list.png)
-*Service Studio Assets에서 확인한 실제 모듈 5개 — 2AA_ITSM_APP, 2AA_ITSM_CORE, 2AA_ITSM_AGENT_TRIAGE, 2AA_ITSM_AGENT_RECOMMANDER, 2AA_ITSM_AGENT_REPORT_MAKER.*
+
+Service Studio Assets에서 확인한 실제 모듈 5개 — 2AA_ITSM_APP, 2AA_ITSM_CORE, 2AA_ITSM_AGENT_TRIAGE, 2AA_ITSM_AGENT_RECOMMANDER, 2AA_ITSM_AGENT_REPORT_MAKER.
 
 ![2AA_ITSM_APP — Interface 탭](screenshot/architecture_app_interface.png)
-*APP 모듈은 화면(UI Flows)만 담당 — Login, Signup 등 화면 트리.*
+
+APP 모듈은 화면(UI Flows)만 담당 — Login, Signup 등 화면 트리.
 
 ![2AA_ITSM_CORE — Logic 탭](screenshot/architecture_core_logic.png)
-*CORE 모듈의 Server Actions — Authentication, Triage, Recommender, PDF 등 로직을 담당.*
+
+CORE 모듈의 Server Actions — Authentication, Triage, Recommender, PDF 등 로직을 담당.
 
 ![2AA_ITSM_CORE — Data 탭](screenshot/architecture_core_data.png)
-*CORE 모듈의 Entities — Incident, Employee, IncidentStatusHistory 등 데이터를 담당.*
+
+CORE 모듈의 Entities — Incident, Employee, IncidentStatusHistory 등 데이터를 담당.
 
 ## 데이터 모델
 
