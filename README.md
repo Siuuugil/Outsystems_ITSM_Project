@@ -52,43 +52,43 @@ flowchart TD
 
 ### 정상 흐름
 
-![요청자 등록](screenshot/등록.gif)
+![요청자 등록](screenshot/requester_register.gif)
 
 요청자가 오류 사례를 신고 접수한다.
 
-![서비스데스크 트리아지](screenshot/서비스데스크_트리아지.gif)
+![서비스데스크 트리아지](screenshot/servicedesk_triage.gif)
 
 서비스데스크가 접수 건을 확인하고, AI 분류 결과를 검토해 담당자를 확정한다.
 
-![담당자 처리완료](screenshot/담당자_처리완료.gif)
+![담당자 처리완료](screenshot/specialist_complete.gif)
 
 담당자가 배정을 확인하고 처리를 완료한다.
 
-![요청자 확인](screenshot/요청자_확인.gif)
+![요청자 확인](screenshot/requester_confirm.gif)
 
 요청자가 해결된 인시던트를 확인한다.
 
 ### 반려 흐름
 
-![서비스데스크 반려처리](screenshot/서비스데스크_반려처리.gif)
+![서비스데스크 반려처리](screenshot/servicedesk_reject.gif)
 
 서비스데스크가 반려 사유를 입력하고 처리한다.
 
-![요청자 반려확인](screenshot/요청자_반려확인.gif)
+![요청자 반려확인](screenshot/requester_reject_confirm.gif)
 
 요청자가 반려된 인시던트를 확인한다.
 
 ### 이관요청 흐름
 
-![전문담당자 이관요청](screenshot/전문담당자_이관요청.gif)
+![전문담당자 이관요청](screenshot/specialist_transfer_request.gif)
 
 전문 담당자가 처리 불가 사유를 입력해 이관을 요청한다.
 
-![서비스데스크 재배정](screenshot/서비스데스크_재배정.gif)
+![서비스데스크 재배정](screenshot/servicedesk_reassign.gif)
 
 서비스데스크가 이관요청을 검토하고 새 담당자를 재배정한다.
 
-![신규담당자 배정확인](screenshot/신규담당자_배정확인.gif)
+![신규담당자 배정확인](screenshot/new_specialist_confirm.gif)
 
 새로 배정된 담당자가 인시던트를 확인하고 처리 코멘트를 남긴다.
 
@@ -170,6 +170,23 @@ A. 재배정은 담당자가 처리를 시작하기 전에 서비스데스크가
 ![분석 보고서 목차](screenshot/pdf_report_toc.png)
 
 통계 요약부터 AI 추천 활용 정보, 재발방지 권고, 최종 결론까지 10개 섹션으로 구성된 보고서 목차.
+
+<table>
+  <tr>
+    <td><img src="screenshot/pdf_sec01_summary.png" width="100%"></td>
+    <td><img src="screenshot/pdf_sec02_03_impact.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="screenshot/pdf_sec04_05_cause.png" width="100%"></td>
+    <td><img src="screenshot/pdf_sec06_07_ai_usage.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="screenshot/pdf_sec08_09_conclusion.png" width="100%"></td>
+    <td><img src="screenshot/pdf_sec10_notes.png" width="100%"></td>
+  </tr>
+</table>
+
+보고서 본문 섹션 예시 — 통계 요약, 문제 발생 내용/업무 영향, 조치 결과/장애 원인, AI 활용 정보, 재발방지 권고/결론, 분석 참고 사항.
 
 ### 관리자
 
